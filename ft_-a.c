@@ -25,7 +25,7 @@ void	ft_list(const char *filename)
 	}
 	while ((dirp = readdir(dir)) && dirp != NULL)
 	{
-		if (*dirp->d_name != '.')
+		//if (*dirp->d_name != '.')
 			ft_putstr(dirp->d_name);
 		ft_putstr(" ");
 	}
