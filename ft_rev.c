@@ -6,7 +6,7 @@
 /*   By: bphofuya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 16:57:58 by bphofuya          #+#    #+#             */
-/*   Updated: 2019/09/11 18:04:14 by bphofuya         ###   ########.fr       */
+/*   Updated: 2019/09/11 18:31:25 by bphofuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	ft_list(const char *filename)
 {
 	DIR				*dir;
-	struct			dirent *dirp;
-	struct			stat s;
-	struct	passwd	*p;
-	struct	group	*g;
+	struct dirent	*dirp;
+	struct stat		s;
+	struct passwd	*p;
+	struct group	*g;
 	t_list			*files;
 	t_list			*one_node;
 
@@ -51,4 +51,4 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		return (1);
 	return (0);
- }
+}
