@@ -6,7 +6,7 @@
 /*   By: bphofuya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 13:18:59 by bphofuya          #+#    #+#             */
-/*   Updated: 2019/09/11 16:54:11 by bphofuya         ###   ########.fr       */
+/*   Updated: 2019/09/11 17:11:28 by bphofuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	ft_list(const char *filename)
 
 int		main(int argc, char **argv)
 {
-	if (argc == 1)
-		ft_list(argv[1]);
+	ft_list(argv[1]);
+	if (argc != 2)
+		return (1);
 	return (0);
 }
