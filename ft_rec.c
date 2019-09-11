@@ -6,7 +6,7 @@
 /*   By: bphofuya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:55:04 by bphofuya          #+#    #+#             */
-/*   Updated: 2019/09/11 14:00:13 by bphofuya         ###   ########.fr       */
+/*   Updated: 2019/09/11 18:17:55 by bphofuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	list_rec(char *basepath)
 				ft_strcat(path, "/");
 				ft_putstr("\t");
 				ft_strcat(path, dp->d_name);
-				list_R(path);
+				list_rec(path);
 			}
 		ft_putstr("\n");
 		closedir(dir);
