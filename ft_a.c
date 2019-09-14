@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   a.c                                                :+:      :+:    :+:   */
+/*   ft_a.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bphofuya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 13:18:59 by bphofuya          #+#    #+#             */
-/*   Updated: 2019/09/11 17:11:28 by bphofuya         ###   ########.fr       */
+/*   Updated: 2019/09/13 15:38:08 by bphofuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_list(const char *filename)
+void	ft_a(t_list *file, flags *flag)
 {
-	DIR				*dir;
-	struct dirent	*dirp;
-
-	filename = ".";
-	dir = opendir(".");
-	if (dir == NULL)
+	while (file)
 	{
-		ft_putstr("error");
-		exit(1);
+		if (flag->a)
+			ft_putendl(file->name);
+		else if (file->name[0] != '.')
+			ft_putendl(file->name);
+		file = file->next;
 	}
-	while ((dirp = readdir(dir)) && dirp != NULL)
-	{
-		ft_putstr(dirp->d_name);
-		ft_putstr("\n");
-	}
-	ft_putstr("\n");
-	closedir(dir);
-}
-
-int		main(int argc, char **argv)
-{
-	ft_list(argv[1]);
-	if (argc != 2)
-		return (1);
-	return (0);
 }
