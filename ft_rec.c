@@ -6,48 +6,38 @@
 /*   By: bphofuya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:55:04 by bphofuya          #+#    #+#             */
-/*   Updated: 2019/09/11 18:17:55 by bphofuya         ###   ########.fr       */
+/*   Updated: 2019/09/13 15:53:32 by bphofuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	list_rec(char *basepath)
+void	ft_rec(char *basepath, flags *flag)
 {
-	char			*path;
-	struct dirent	*dp;
-	DIR				*dir;
+	t_list	*files;
+	t_list	*file;
 
-	path = (char *)malloc(sizeof(char));
-	dir = opendir(basepath);
-	if (!dir)
-		return ;
-	while ((dp = readdir(dir)) != NULL)
-	{
-		if (ft_strcmp(dp->d_name, ".") != 0 && ft_strcmp(dp->d_name, "..") != 0)
-			if (dp->d_name[0] != '.')
+	files = create_list(basepath);
+	file = files;
+	sort_alpha(&files);
+	if (flag->t)
+		sort_t(&files);
+	if (flag->r)
+		//sort_rev(&files);
+		ft_putendl("reverse ........");
+
+	print(files, flag);
+	
+	if (flag->R)
+		while (file)
+		{
+			if (S_ISDIR(file->fstat.st_mode))
 			{
-				ft_putstr(dp->d_name);
-				ft_putstr("\t");
-				ft_strcpy(path, basepath);
-				ft_putstr("\t");
-				ft_strcat(path, "/");
-				ft_putstr("\t");
-				ft_strcat(path, dp->d_name);
-				list_rec(path);
+				ft_putstr("recurse into ");
+				ft_putendl(file->name);
 			}
-		ft_putstr("\n");
-		closedir(dir);
-	}
+			file = file->next;
+		}
+
 }
 
-int		main(void)
-{
-	char *path;
-
-	path = ".";
-	ft_putstr("\n");
-	ft_putstr(path);
-	list_rec("./");
-	return (0);
-}
