@@ -6,7 +6,7 @@
 /*   By: bphofuya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:07:06 by bphofuya          #+#    #+#             */
-/*   Updated: 2019/09/11 18:01:50 by bphofuya         ###   ########.fr       */
+/*   Updated: 2019/09/13 15:36:35 by bphofuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,31 @@ typedef struct s_list
 	struct s_list 	*next;
 }			t_list;
 
+typedef struct my_flags
+{
+	char a;
+	char l;
+	char t;
+	char R;
+	char r;
+}		flags;
+
 t_list *node(char *name,struct stat st, char *user, char *group);
 void	add_node_to_list(t_list **list, t_list *node);
-void	print_list(t_list *list);
+void	print_list(t_list *list, flags *flag);
 void	ft_list(const char *filename);
 char	*ctime(const time_t *);
 void	sort_alpha(t_list **st);
 void    print_sort_t(t_list *list);
 void    list_rec(char *basepath);
 void    sort_rev(t_list **st);
+flags   *read_flags(int argc, char **argv);
+char    **read_files(int argc, char **argv);
+void    ft_l(const char *filename);
+t_list	*create_list(const char *filename);
+void    ft_rec(char *basepath, flags *flag);
+t_list	*create_list(const char *filename);
+void    sort_t(t_list **st);
+void	print(t_list *files, flags *flag);
+void	ft_a(t_list *files, flags *flag);
 #endif
