@@ -6,7 +6,7 @@
 /*   By: bphofuya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 10:52:28 by bphofuya          #+#    #+#             */
-/*   Updated: 2019/09/10 18:17:43 by bphofuya         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:13:18 by bphofuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,7 @@ void	add_node_to_list(t_list **list, t_list *node)
 	if (list != NULL)
 	{
 		tmp = *list;
-		if (tmp != NULL)
-		{
-			while (tmp->next != NULL)
-				tmp = tmp->next;
-			tmp->next = node;
-		}
-		else
-			*list = node;
+		node->next = tmp;
+		*list = node;
 	}
 }

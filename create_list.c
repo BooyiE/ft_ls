@@ -6,37 +6,57 @@
 /*   By: bphofuya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 13:46:24 by bphofuya          #+#    #+#             */
-/*   Updated: 2019/09/13 14:15:11 by bphofuya         ###   ########.fr       */
+/*   Updated: 2019/09/20 14:08:04 by bphofuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_list	*create_list(const char *filename)
+static void		*error(const char *filename)
 {
-	DIR				*dir;
-	struct			dirent *dirp;
-	struct			stat s;
-	struct	passwd	*p;
-	struct	group	*g;
-	t_list			*files;
-	t_list			*one_node;
+	ft_putstr("error opening ");
+	ft_putstr(filename);
+	return (NULL);
+}
 
-	dir = opendir(filename);
-	if (dir == NULL)
-	{
-		ft_putstr("error opening ");
-		ft_putstr(filename);
-		return(0);
-	}
+static	void	grp(struct stat s, char **grpname)
+{
+	struct group	*g;
+
+	g = getgrgid(s.st_gid);
+	if (g)
+		*grpname = g->gr_name;
+	else
+		*grpname = ft_strdup("4000");
+}
+
+static	t_list	*do_some_stuff(DIR *dir, const char *filename)
+{
+	struct dirent	*dirp;
+	struct stat		s;
+	t_list			*files;
+	char			*name;
+	char			*grpname;
+
+	files = NULL;
 	while ((dirp = readdir(dir)) && dirp != NULL)
 	{
-		lstat(dirp->d_name, &s);
-		p = getpwuid(s.st_uid);
-		g = getgrgid(s.st_gid);
-		one_node = node(dirp->d_name, s, p->pw_name, g->gr_name);
-		add_node_to_list(&files, one_node);
+		name = filepath(filename, dirp->d_name);
+		lstat(name, &s);
+		grp(s, &grpname);
+		add_node_to_list(&files, node(dirp->d_name, s, grpname));
+		free(name);
 	}
 	closedir(dir);
 	return (files);
+}
+
+t_list			*create_list(const char *filename)
+{
+	DIR	*dir;
+
+	dir = opendir(filename);
+	if (dir == NULL)
+		return (error(filename));
+	return (do_some_stuff(dir, filename));
 }

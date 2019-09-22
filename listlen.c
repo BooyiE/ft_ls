@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_a.c                                             :+:      :+:    :+:   */
+/*   listlen.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bphofuya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/23 13:18:59 by bphofuya          #+#    #+#             */
-/*   Updated: 2019/09/19 17:58:31 by bphofuya         ###   ########.fr       */
+/*   Created: 2019/09/18 15:09:01 by bphofuya          #+#    #+#             */
+/*   Updated: 2019/09/19 18:18:03 by bphofuya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_a(t_list *file, flags *flag)
+int		listlen(t_list *list)
 {
-	while (file)
-	{
-		if (flag->a)
-			ft_putendl(file->name);
-		else if (file->name[0] != '.')
-			ft_putendl(file->name);
-		file = file->next;
-	}
+	int i;
+
+	i = 0;
+	if (list)
+		while (list != NULL)
+		{
+			list = list->next;
+			i++;
+		}
+	return (i);
 }
